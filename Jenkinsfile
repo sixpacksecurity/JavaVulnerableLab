@@ -6,10 +6,11 @@ pipeline {
             agent {
                 docker {
                     image 'returntocorp/semgrep'
-                    //args "--entrypoint=''"
+                    args "-u root"
                 }
             }
             steps {
+                sh 'ls -la'
                 sh "semgrep --config=auto ./src"
             }
         }
