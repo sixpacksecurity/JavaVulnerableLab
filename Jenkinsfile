@@ -9,6 +9,9 @@ pipeline {
                     args "--entrypoint='semgrep --config=auto ./src'"
                 }
             }
+            steps {
+                sh "echo 'Done!'"
+            }
         }
 
         stage('Build') {
