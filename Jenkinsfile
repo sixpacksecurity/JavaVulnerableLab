@@ -10,8 +10,8 @@ pipeline {
         stage('Initialize') {
             steps {
                 sh '''
-                    sudo apt update && sudo apt upgrade -y
-                    sudo apt install maven openjdk-18-jdk -y
+                    apt-get update && apt-get upgrade -y
+                    apt-get install maven openjdk-18-jdk -y
                 '''
             }
         }
