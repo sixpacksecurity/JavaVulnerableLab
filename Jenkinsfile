@@ -15,7 +15,7 @@ pipeline {
                         sh 'semgrep --config=auto --json -o semgrep_output.json ./src'
                     }
                 }
-                stage {
+                stage ('List Docker Images') {
                     steps {
                         sh 'docker images'
                     }
