@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Initialize and Build') {
             steps {
-                sh 'pwd && ls && mvn'
+                sh 'mvn clean package && ls ./target'
             }
         }
     }
