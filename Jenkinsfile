@@ -3,17 +3,31 @@ pipeline {
     agent none
 
     stages {
-        stage ('Semgrep Scan') {
-            agent {
-                docker {
-                    image 'returntocorp/semgrep'
-                    args  '-u root'
+        stage ('SAST') {
+            parallel {
+                stage ('Semgrep') {
+                    agent {
+                        docker {
+                            image 'returntocorp/semgrep'
+                            args  '-u root' // OR RUN mkdir /.semgrep && chmod -R 777 /.semgrep
+                        }
+                    }
+                    steps {
+                        sh 'semgrep --config=auto --json -o semgrep_output.json ./src'
+                    }
+                }
+                stage ('Trivy') {
+                    agent {
+                        docker {
+                            image 'aquasec/trivy:0.36.1'
+                        }
+                    }
+                    steps {
+                        sh 'trivy image -i Dockerfile'
+                    }
                 }
             }
-            steps {
-                sh 'semgrep --config=auto --json -o semgrep_output.json ./src'
-                sh 'cat semgrep_output.json'
-            }
+            
         }
 
         stage('Build') {
