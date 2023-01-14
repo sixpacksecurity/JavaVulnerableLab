@@ -11,7 +11,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'semgrep --config=auto --json -o smegrep_output.json ./src'
+                sh 'semgrep --config=auto --json -o semgrep_output.json ./src'
                 sh 'cat semgrep_output.json'
             }
         }
