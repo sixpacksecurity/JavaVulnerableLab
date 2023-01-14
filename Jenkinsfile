@@ -6,7 +6,7 @@ pipeline {
             agent {
                 docker {
                     image 'returntocorp/semgrep'
-                    args "--entrypoint=''"
+                    //args "--entrypoint=''"
                 }
             }
             steps {
