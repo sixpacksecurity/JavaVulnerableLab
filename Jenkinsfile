@@ -1,24 +1,28 @@
 pipeline {
-    agent {
-        docker {
-            image 'ubuntu'
-            args "--entrypoint=''"
-        }
-    }
+    agent none
     stages {
 
-        stage('Initialize') {
+        stage('Build') {
+            agent {
+                docker {
+                    image 'maven:3.8.7-openjdk-18-slim'
+                    args "--entrypoint=''"
+                    }
+                }
             steps {
-                sh '''
-                    apt-get update && apt-get upgrade -y
-                    apt-get install maven openjdk-18-jdk -y
-                '''
+                sh 'mvn clean package && ls ./target'
             }
         }
 
-        stage('Build') {
+        stage('Test Carry over') {
+            agent {
+                docker {
+                    image 'maven:3.8.7-openjdk-18-slim'
+                    args "--entrypoint=''"
+                    }
+                }
             steps {
-                sh 'mvn clean package && ls ./target'
+                sh 'hostname && id && ls'
             }
         }
     }
