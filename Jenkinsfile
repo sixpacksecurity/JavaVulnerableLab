@@ -1,17 +1,18 @@
 pipeline {
-    agent none
-    stages {
 
+    agent none
+
+    stages {
         stage ('Semgrep Scan') {
             agent {
                 docker {
                     image 'returntocorp/semgrep'
-                    args "-u root"
+                    args  '-u root'
                 }
             }
             steps {
-                sh 'ls -la'
-                sh "semgrep --config=auto ./src"
+                sh 'semgrep --config=auto --json -o smegrep_output.json ./src'
+                sh 'cat semgrep_output.json'
             }
         }
 
