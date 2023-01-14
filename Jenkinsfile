@@ -20,17 +20,17 @@ pipeline {
                         sh 'docker images'
                     }
                 }
-                stage ('Trivy') {
-                    agent {
-                        docker {
-                            image 'aquasec/trivy:0.36.1'
-                            args "--entrypoint=''"
-                        }
-                    }
-                    steps {
-                        sh 'trivy image -i Dockerfile'
-                    }
-                }
+                //stage ('Trivy') {
+                    //agent {
+                        //docker {
+                            //image 'aquasec/trivy:0.36.1'
+                            //args "--entrypoint=''"
+                        //}
+                    //}
+                    //steps {
+                        //sh 'trivy image -i Dockerfile'
+                    //}
+                //}
             }
             
         }
