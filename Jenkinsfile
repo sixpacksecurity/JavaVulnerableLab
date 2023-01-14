@@ -1,7 +1,6 @@
 pipeline {
-
     agent none
-
+    
     stages {
         stage ('SAST') {
             parallel {
@@ -14,6 +13,12 @@ pipeline {
                     }
                     steps {
                         sh 'semgrep --config=auto --json -o semgrep_output.json ./src'
+                    }
+                }
+                stage {
+                    agent none
+                    steps {
+                        sh 'docker images'
                     }
                 }
                 stage ('Trivy') {
