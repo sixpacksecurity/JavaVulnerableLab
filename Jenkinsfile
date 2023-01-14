@@ -1,6 +1,6 @@
 pipeline {
     agent none
-    
+
     stages {
         stage ('SAST') {
             parallel {
@@ -16,7 +16,6 @@ pipeline {
                     }
                 }
                 stage {
-                    agent none
                     steps {
                         sh 'docker images'
                     }
