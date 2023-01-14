@@ -6,6 +6,7 @@ pipeline {
         }
     }
     stages {
+
         stage('Initialize') {
             steps {
                 sh '''
@@ -13,7 +14,9 @@ pipeline {
                     apt install maven openjdk-18-jdk -y
                 '''
             }
-        stage('Initialize and Build') {
+        }
+
+        stage('Build') {
             steps {
                 sh 'mvn clean package && ls ./target'
             }
