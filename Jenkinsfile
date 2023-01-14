@@ -2,6 +2,18 @@ pipeline {
     agent none
     stages {
 
+        stage ('Semgrep Scan') {
+            agent {
+                docker {
+                    image 'returntocorp/semgrep'
+                    args "--entrypoint=''"
+                }
+            }
+            steps {
+                sh 'semgrep --config=auto ./src/'
+            }
+        }
+        
         stage('Build') {
             agent {
                 docker {
