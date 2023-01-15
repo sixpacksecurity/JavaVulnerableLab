@@ -18,7 +18,8 @@ pipeline {
                 stage ('List Docker Images') {
                     agent any
                     steps {
-                        sh 'docker images'
+                        sh 'docker build -t VulnerableJavaAppContainer:${env.BUILD_ID} .'
+                        sh 'docker images | grep VulnerableJavaAppContainer'
                     }
                 }
                 //stage ('Trivy') {
