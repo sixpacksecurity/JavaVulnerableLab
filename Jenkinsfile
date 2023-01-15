@@ -16,6 +16,7 @@ pipeline {
                     }
                 }
                 stage ('List Docker Images') {
+                    agent any
                     steps {
                         sh 'docker images'
                     }
