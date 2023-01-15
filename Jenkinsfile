@@ -72,12 +72,12 @@ pipeline {
                 AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
                 AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
             }
-            steps {
+            steps { // instead of running as root and installing dependencies, we could also use docker as a build agent 
                 sh 'yum update; yum install tar gzip -y'
                 sh 'curl https://download.docker.com/linux/static/stable/aarch64/docker-20.10.9.tgz -o docker-20.10.9.tgz -s'
                 sh 'tar -xzvf docker-20.10.9.tgz'
-                sh 'cd ./docker && chmod +x docker'
-                sh './docker images'
+                sh 'chmod +x ./docker/docker'
+                sh './docker/docker images'
             }
         }
 
