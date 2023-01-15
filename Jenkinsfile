@@ -76,8 +76,7 @@ pipeline {
                 sh 'yum update; yum install tar gzip -y'
                 sh 'curl https://download.docker.com/linux/static/stable/x86_64/docker-20.10.9.tgz -o docker-20.10.9.tgz -s'
                 sh 'tar -xzvf docker-20.10.9.tgz'
-                sh 'chmod +x ./docker/docker'
-                sh './docker/docker images'
+                sh 'chmod +x ./docker/docker && cp ./docker/docker /usr/bin'
                 sh "aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 662411289471.dkr.ecr.ap-southeast-1.amazonaws.com"
                 sh "docker tag vulnerablejavappcontainer:${env.BUILD_ID} 662411289471.dkr.ecr.ap-southeast-1.amazonaws.com/vulnerablejavapp-testrepository:${env.BUILD_ID}"
                 sh "docker push 662411289471.dkr.ecr.ap-southeast-1.amazonaws.com/vulnerablejavapp-testrepository:${env.BUILD_ID}"
