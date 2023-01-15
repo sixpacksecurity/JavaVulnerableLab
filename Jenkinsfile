@@ -18,8 +18,8 @@ pipeline {
                 stage ('List Docker Images') {
                     agent any
                     steps {
-                        sh "docker build --no-cache -t VulnerableJavaAppContainer:${env.BUILD_ID} ."
-                        sh 'docker images | grep VulnerableJavaAppContainer'
+                        sh "docker build --no-cache -t vulnerablejavappcontainer:${env.BUILD_ID} ."
+                        sh 'docker images | grep vulnerablejavappcontainer'
                     }
                 }
                 //stage ('Trivy') {
