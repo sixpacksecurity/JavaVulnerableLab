@@ -74,10 +74,10 @@ pipeline {
             }
             steps { // instead of running as root and installing dependencies, we could also use docker as a build agent 
                 sh 'yum update; yum install tar gzip -y'
-                sh 'curl https://download.docker.com/linux/static/stable/aarch64/docker-20.10.9.tgz -o docker-20.10.9.tgz -s'
+                sh 'curl https://download.docker.com/linux/static/stable/x86_64/docker-20.10.9.tgz -o docker-20.10.9.tgz -s'
                 sh 'tar -xzvf docker-20.10.9.tgz'
                 sh 'chmod +x ./docker/docker'
-                sh 'pwd && ./docker/docker'
+                sh './docker/docker images'
             }
         }
 
