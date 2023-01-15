@@ -77,7 +77,7 @@ pipeline {
                 sh 'curl https://download.docker.com/linux/static/stable/aarch64/docker-20.10.9.tgz -o docker-20.10.9.tgz -s'
                 sh 'tar -xzvf docker-20.10.9.tgz'
                 sh 'chmod +x ./docker/docker'
-                sh './docker/docker images'
+                sh 'pwd && ./docker/docker'
             }
         }
 
