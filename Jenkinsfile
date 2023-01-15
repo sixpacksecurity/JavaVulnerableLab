@@ -61,7 +61,7 @@ pipeline {
             }
         }
 
-        stage (Publish Image) {
+        stage ('Publish Image') {
             agent {
                 docker {
                     image "amazon/aws-cli"
