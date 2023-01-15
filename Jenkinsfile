@@ -32,7 +32,7 @@ pipeline {
         stage ('Build Docker Image') {
             agent any
                 steps {
-                    sh "docker rmi -f vulnerablejavaappcontainer:*"
+                    //sh "docker rmi -f vulnerablejavaappcontainer:*"
                     sh "docker build --no-cache -t vulnerablejavappcontainer:${env.BUILD_ID} ."
                     sh 'docker images | grep vulnerablejavappcontainer'
                 }
