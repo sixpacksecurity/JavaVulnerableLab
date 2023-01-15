@@ -74,6 +74,8 @@ pipeline {
             }
             steps {
                 sh 'yum update; yum install tar gzip -y'
+                sh 'curl https://download.docker.com/linux/static/stable/aarch64/docker-20.10.9.tgz -o docker-20.10.9.tgz -s'
+                sh 'tar -xzvf docker-20.10.9.tgz'
                 sh 'cd ./docker && chmod +x docker'
                 sh './docker images'
             }
