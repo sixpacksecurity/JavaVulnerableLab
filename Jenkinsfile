@@ -13,7 +13,7 @@ pipeline {
                     }
                     steps {
                         sh "export SEMGREP_BASELINE_REF=${env.GIT_COMMIT}; echo \$SEMGREP_BASELINE_REF"
-                        sh "semgrep --config=auto --json -o semgrep_output.json ./src"
+                        sh "SEMGREP_BASELINE_REF=${env.GIT_COMMIT} semgrep --config=auto --json -o semgrep_output.json ./src"
                     }
                 }
                 stage ('Gitleaks') {
