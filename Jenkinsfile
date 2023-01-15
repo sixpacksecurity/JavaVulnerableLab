@@ -41,7 +41,7 @@ pipeline {
             agent {
                 docker {
                     image "aquasec/trivy:0.36.1"
-                    args "--entrypoint='' -u root" //this needs to run as root to create /.cache directory
+                    args "--entrypoint='' -u root -v /var/run/docker.sock:/var/run/docker.sock" // run as root to create /.cache directory; mount docker.sock to be able to scan container images in dind
                 }
             }
             steps {
