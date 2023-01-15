@@ -25,9 +25,8 @@ pipeline {
                         sh 'gitleaks detect --source . -v'
                     }
                 }
-                }
-            } 
-        }
+            }
+        } 
 
         stage('Build Maven Project') {
             agent {
