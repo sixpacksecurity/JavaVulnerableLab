@@ -12,6 +12,7 @@ pipeline {
                         }
                     }
                     steps {
+                        sh "export SEMGREP_BASELINE_REF=${env.GIT_COMMIT}"
                         sh "semgrep --config=auto --json -o semgrep_output.json ./src"
                     }
                 }
