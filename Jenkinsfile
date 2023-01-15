@@ -23,7 +23,7 @@ pipeline {
                         }
                     }
                     steps {
-                        sh 'gitleaks detect --source . -v --depth=1'
+                        sh 'gitleaks detect --source . -v --log-opts "-p -n 1"'
                     }
                 }
             }
