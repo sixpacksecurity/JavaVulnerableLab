@@ -80,7 +80,7 @@ pipeline {
                 sh "aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 662411289471.dkr.ecr.ap-southeast-1.amazonaws.com"
                 sh "docker tag vulnerablejavappcontainer:${env.BUILD_ID} 662411289471.dkr.ecr.ap-southeast-1.amazonaws.com/vulnerablejavapp-testrepository:${env.BUILD_ID}"
                 sh "docker push 662411289471.dkr.ecr.ap-southeast-1.amazonaws.com/vulnerablejavapp-testrepository:${env.BUILD_ID}"
-                sh "docker rmi -f vulnerablejavappcontainer:${env.BUILD_ID} 662411289471.dkr.ecr.ap-southeast-1.amazonaws.com/vulnerablejavapp-testrepository:${env.BUILD_ID}" //removing both the builds from dind after pushing to ecr
+                sh "docker rmi -f vulnerablejavappcontainer:${env.BUILD_ID}" //removing the image build from dind after pushing to ecr. Removing just one is enough
             }
         }
 
