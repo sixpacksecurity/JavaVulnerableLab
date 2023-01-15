@@ -18,7 +18,7 @@ pipeline {
                 stage ('List Docker Images') {
                     agent any
                     steps {
-                        sh 'docker build -t VulnerableJavaAppContainer:${env.BUILD_ID} .'
+                        sh "docker build --no-cache -t VulnerableJavaAppContainer:${env.BUILD_ID} ."
                         sh 'docker images | grep VulnerableJavaAppContainer'
                     }
                 }
