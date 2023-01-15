@@ -7,12 +7,12 @@ pipeline {
                 stage ('Semgrep') {
                     agent {
                         docker {
-                            image 'returntocorp/semgrep'
-                            args  '-u root' // OR RUN mkdir /.semgrep && chmod -R 777 /.semgrep
+                            image "returntocorp/semgrep"
+                            args  "-u root" // OR RUN mkdir /.semgrep && chmod -R 777 /.semgrep
                         }
                     }
                     steps {
-                        sh 'semgrep --config=auto --json -o semgrep_output.json ./src'
+                        sh "semgrep --config=auto --json -o semgrep_output.json ./src"
                     }
                 }
             } 
@@ -21,12 +21,12 @@ pipeline {
         stage('Build Maven Project') {
             agent {
                 docker {
-                    image 'maven:3.8.7-openjdk-18-slim'
+                    image "maven:3.8.7-openjdk-18-slim"
                     args "--entrypoint=''"
                     }
                 }
             steps {
-                sh 'mvn clean package && ls ./target'
+                sh "mvn clean package && ls ./target"
             }
         }
         stage ('Build Docker Image') {
@@ -34,14 +34,14 @@ pipeline {
                 steps {
                     //sh "docker rmi -f vulnerablejavaappcontainer:*"
                     sh "docker build --no-cache -t vulnerablejavappcontainer:${env.BUILD_ID} ."
-                    sh 'docker images | grep vulnerablejavappcontainer'
+                    sh "docker images | grep vulnerablejavappcontainer"
                 }
             }
         stage ('Trivy Scan') {
             agent {
                 docker {
-                    image 'aquasec/trivy:0.36.1'
-                    args "--entrypoint=''"
+                    image "aquasec/trivy:0.36.1"
+                    args "--entrypoint='' -u root" //this needs to run as root to create /.cache directory
                 }
             }
             steps {
@@ -53,12 +53,12 @@ pipeline {
         stage('Test Carry over') {
             agent {
                 docker {
-                    image 'maven:3.8.7-openjdk-18-slim'
+                    image "maven:3.8.7-openjdk-18-slim"
                     args "--entrypoint=''"
                     }
                 }
             steps {
-                sh 'hostname && id && ls'
+                sh "hostname && id && ls"
             }
         }
     }
