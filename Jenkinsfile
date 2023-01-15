@@ -61,6 +61,23 @@ pipeline {
             }
         }
 
+        stage (Publish Image) {
+            agent {
+                docker {
+                    image "amazon/aws-cli"
+                    args "--entrypoint='' -u root -v /var/run/docker.sock:/var/run/docker.sock"
+                }
+            }
+            environment {
+                AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
+                AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
+            }
+            steps {
+                sh 'yum update; yum install tar gzip -y'
+                sh 'cd ./docker && chmod +x docker'
+                sh './docker images'
+            }
+        }
 
         stage('Test Carry over') {
             agent {
