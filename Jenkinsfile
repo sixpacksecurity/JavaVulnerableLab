@@ -14,6 +14,7 @@ pipeline {
                     steps {
                         sh "semgrep --config=auto --json -o semgrep_output.json ./src"
                     }
+                }
                 stage ('Gitleaks') {
                     agent {
                         docker {
