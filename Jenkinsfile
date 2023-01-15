@@ -43,7 +43,7 @@ pipeline {
         stage ('Build Docker Image') {
             agent any
                 steps {
-                    sh "docker rmi \$(docker images | grep 'vulnerablejavappcontainer')" //remove older images to save space. Don't need them for demo. Escaping via \
+                    //sh "docker rmi -f \$(docker images | grep 'vulnerablejavappcontainer')" //remove older images to save space. Don't need them for demo. Escaping via \
                     sh "docker build --no-cache -t vulnerablejavappcontainer:${env.BUILD_ID} ."
                     sh "docker images | grep vulnerablejavappcontainer"
                 }
